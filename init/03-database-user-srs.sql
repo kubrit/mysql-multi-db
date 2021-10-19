@@ -1,0 +1,2 @@
+CREATE DATABASE IF NOT EXISTS `srs`;
+GRANT ALL PRIVILEGES ON srs.* TO 'srs'@'%' IDENTIFIED BY 'my_password';

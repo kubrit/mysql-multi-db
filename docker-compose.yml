@@ -1,0 +1,30 @@
+version: "3.7"
+networks:
+  mysql-network:
+    name: mysql-network
+    driver: bridge
+services:
+  # mysql
+  mysql:
+    image: mysql:5.7
+    restart: always
+    hostname: mysql
+    networks:
+      - mysql-network
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      # - ./init:/docker-entrypoint-initdb.d # Optional - ./init directory with only creating database and users without tables (no need to use 01-user-root.sql)
+      - /var/www/html/itm/database/db_init.sql:/docker-entrypoint-initdb.d/itm-db_init.sql
+      - /var/www/html/srs/database/db_init.sql:/docker-entrypoint-initdb.d/srs-db_init.sql
+      - /srv/mysql/data:/var/lib/mysql
+    environment:
+      LANG: C.UTF-8
+      MYSQL_ROOT_PASSWORD: root_password
+  # adminer
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - mysql-network
