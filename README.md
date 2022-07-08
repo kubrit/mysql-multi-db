@@ -8,5 +8,5 @@ change root password to hard to break: `MYSQL_ROOT_PASSWORD: root_password`
 ```sh
 git clone https://github.com/kubrit/mysql-multi-db.git
 cd mysql-multi-db
-docker-compose -up -d
+docker-compose up -d
 ```
